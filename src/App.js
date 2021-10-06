@@ -1,26 +1,37 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
-export default function App() {
-  const [counter, setCounter] = useState(0);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+  }
 
-  useEffect(() => {
-    console.log('useEffect', counter);
-    setCounter(4);
-  }, [counter]);
+  componentDidMount() {
+    this.setState({ count: this.state.count + 1 });
+  }
 
-  useLayoutEffect(() => {
-    console.log('useLayoutEffect', counter);
-    setCounter(5);
-  });
-
-  const onClickButton = () => {
-    let newCounter = counter + 1;
-    setCounter(newCounter);
+  handleIncrement = () => {
+    this.setState({ count: this.state.count + 1 });
   };
 
-  return (
-    <div>
-      <button onClick={onClickButton}>Click btn</button>
-    </div>
-  );
+  handleDecrement = () => {
+    this.setState({ count: this.state.count - 1 });
+  };
+
+  render() {
+    return (
+      <div className="counter">
+        <h1 className="count">{this.state.count}</h1>
+
+        <button type="button" onClick={this.handleIncrement}>
+          Increment
+        </button>
+        <button type="button" onClick={this.handleDecrement}>
+          Decrement
+        </button>
+      </div>
+    );
+  }
 }
+
+export default App;
